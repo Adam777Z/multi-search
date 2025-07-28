@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Multi Search</title>
+	<meta name="description" content="Multi Search enables searches to be performed using multiple search engines at once, resulting in saved time and improved results."">
 </head>
 <body>
 <script>
