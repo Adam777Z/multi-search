@@ -39,7 +39,8 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
 
 	window.open( 'https://search.brave.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
 	window.open( 'https://duckduckgo.com/?' + new URLSearchParams({ q }).toString() + '&ia=web', '_blank' );
-	window.open( 'https://www.bing.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
+	// window.open( 'https://www.bing.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
+	window.open( 'https://www.bing.com/search?' + new URLSearchParams({ q }).toString() + '&form=QBLH', '_blank' );
 	// window.open( 'https://www.google.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
 
 	// window.close(); // Does not work
