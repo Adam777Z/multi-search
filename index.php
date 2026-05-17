@@ -7,10 +7,11 @@
 </head>
 <body>
 <script>
-document.addEventListener( 'DOMContentLoaded', ( event ) => {
-	var q = <?php echo json_encode( isset( $_GET['q'] ) ? $_GET['q'] : '' ); ?>;
+document.addEventListener( 'DOMContentLoaded', () => {
+	const params = new URLSearchParams( window.location.search );
+	const q = params.get( 'q' ) || '';
 
-	if ( !q ) {
+	if ( ! q ) {
 		// window.location.href = 'https://www.google.com/';
 		window.location.href = 'https://www.bing.com/';
 		// window.location.href = 'https://duckduckgo.com/';
@@ -24,24 +25,26 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
 		return;
 	}
 
+	const query = new URLSearchParams( { q } ).toString();
+
 	// Redirect current page (close does not work)
 
 	// window.location.href = 'https://www.bing.com/';
 	// window.location.href = 'about:blank';
 
-	window.open( 'https://www.google.com/search?q=' + encodeURIComponent( q ), '_self' );
-	// window.open( 'https://www.bing.com/search?q=' + encodeURIComponent( q ), '_self' );
-	// window.open( 'https://duckduckgo.com/?q=' + encodeURIComponent( q ) + '&ia=web', '_self' );
-	// window.open( 'https://search.brave.com/search?q=' + encodeURIComponent( q ), '_self' );
+	window.open( 'https://www.google.com/search?' + query, '_self' );
+	// window.open( 'https://www.bing.com/search?' + query, '_self' );
+	// window.open( 'https://duckduckgo.com/?' + query + '&ia=web', '_self' );
+	// window.open( 'https://search.brave.com/search?' + query, '_self' );
 
 	// Opened in reverse order
 	// Activated when opened
 
-	window.open( 'https://search.brave.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
-	window.open( 'https://duckduckgo.com/?' + new URLSearchParams({ q }).toString() + '&ia=web', '_blank' );
-	// window.open( 'https://www.bing.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
-	window.open( 'https://www.bing.com/search?' + new URLSearchParams({ q }).toString() + '&form=QBLH', '_blank' );
-	// window.open( 'https://www.google.com/search?' + new URLSearchParams({ q }).toString(), '_blank' );
+	window.open( 'https://search.brave.com/search?' + query, '_blank' );
+	window.open( 'https://duckduckgo.com/?' + query + '&ia=web', '_blank' );
+	// window.open( 'https://www.bing.com/search?' + query, '_blank' );
+	window.open( 'https://www.bing.com/search?' + query + '&form=QBLH', '_blank' );
+	// window.open( 'https://www.google.com/search?' + query, '_blank' );
 
 	// window.close(); // Does not work
 });
