@@ -2,9 +2,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="color-scheme" content="light dark">
 		<title>Multi Search</title>
 		<meta name="description" content="Multi Search enables searches to be performed using multiple search engines at once, resulting in saved time and improved results.">
 		<link rel="icon" href="search.ico" type="image/x-icon">
+		<script>
+		const colorSchemePreference = window.matchMedia("(prefers-color-scheme: dark)");
+		const applyColorScheme = () => {
+			document.documentElement.setAttribute("data-bs-theme", colorSchemePreference.matches ? "dark" : "light");
+		};
+		applyColorScheme();
+		colorSchemePreference.addEventListener("change", applyColorScheme);
+		</script>
 
 		<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 		<link rel="stylesheet" href="./assets/css/bootstrap-icons.min.css">
