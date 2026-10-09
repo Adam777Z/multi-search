@@ -14,9 +14,14 @@
 	</head>
 	<body>
 		<main class="search-home">
-			<a href="https://github.com/Adam777Z/multi-search" class="github-link" aria-label="GitHub repository" title="GitHub repository" target="_blank" rel="noopener noreferrer">
+			<div class="top-links">
+				<button class="settings-link" id="settings-button" type="button" aria-label="Search settings" title="Search settings">
+					<i class="bi bi-gear-fill" aria-hidden="true"></i>
+				</button>
+				<a href="https://github.com/Adam777Z/multi-search" class="github-link" aria-label="GitHub repository" title="GitHub repository" target="_blank" rel="noopener noreferrer">
 				<i class="bi bi-github" aria-hidden="true"></i>
-			</a>
+				</a>
+			</div>
 			<h1 class="text-center mb-3">Multi Search</h1>
 			<form class="search-form" role="search" method="get">
 				<label class="visually-hidden" for="search-query">Search</label>
@@ -26,5 +31,26 @@
 				</button>
 			</form>
 		</main>
+		<dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+			<header class="settings-header">
+				<h2 id="settings-title">Search engines</h2>
+				<button class="dialog-close" type="button" id="close-settings" aria-label="Close settings" title="Close settings">
+					<i class="bi bi-x-lg" aria-hidden="true"></i>
+				</button>
+			</header>
+			<form id="search-engine-settings-form" novalidate>
+				<div class="search-engine-list" id="search-engine-list"></div>
+				<div class="settings-toolbar">
+					<button class="btn btn-outline-secondary" id="add-search-engine" type="button">
+						<i class="bi bi-plus-lg" aria-hidden="true"></i> Add
+					</button>
+					<button class="btn btn-outline-secondary" id="restore-search-engines" type="button">Restore defaults</button>
+				</div>
+				<p class="settings-error" id="settings-error" role="status" aria-live="polite"></p>
+				<div class="settings-footer">
+					<button class="btn btn-primary" type="submit">Save changes</button>
+				</div>
+			</form>
+		</dialog>
 	</body>
 </html>
