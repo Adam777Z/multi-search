@@ -8,6 +8,14 @@ body {
 	width: min(22rem, calc(100% - 2rem));
 }
 
+.github-link {
+	position: fixed;
+	top: 0.5rem;
+	right: 1rem;
+	line-height: 1;
+	font-size: 2.5rem;
+}
+
 .search-form {
 	display: flex;
 	gap: .5rem;
