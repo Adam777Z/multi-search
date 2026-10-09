@@ -7,10 +7,40 @@
 		<meta name="description" content="Multi Search enables searches to be performed using multiple search engines at once, resulting in saved time and improved results.">
 		<link rel="icon" href="search.ico" type="image/x-icon">
 		<script>
+		const COLOR_SCHEME_STORAGE_KEY = "multi-search-color-scheme";
 		const colorSchemePreference = window.matchMedia("(prefers-color-scheme: dark)");
+		let selectedColorScheme = "auto";
+		try {
+			const storedColorScheme = localStorage.getItem(COLOR_SCHEME_STORAGE_KEY);
+			if (["auto", "light", "dark"].includes(storedColorScheme)) {
+				selectedColorScheme = storedColorScheme;
+			}
+		} catch {
+		}
+
 		const applyColorScheme = () => {
-			document.documentElement.setAttribute("data-bs-theme", colorSchemePreference.matches ? "dark" : "light");
+			const colorScheme = selectedColorScheme === "auto" ? (colorSchemePreference.matches ? "dark" : "light") : selectedColorScheme;
+			document.documentElement.setAttribute("data-bs-theme", colorScheme);
 		};
+		const updateColorSchemeButton = (button) => {
+			const icons = { auto: "bi-circle-half", light: "bi-sun-fill", dark: "bi-moon-fill" };
+			button.innerHTML = `<i class="bi ${ icons[selectedColorScheme] }" aria-hidden="true"></i>`;
+			button.setAttribute("aria-label", `Color theme: ${ selectedColorScheme }`);
+			button.title = `Color theme: ${ selectedColorScheme }`;
+		};
+		document.addEventListener("DOMContentLoaded", () => {
+			const button = document.getElementById("color-scheme-button");
+			updateColorSchemeButton(button);
+			button.addEventListener("click", () => {
+				selectedColorScheme = { auto: "light", light: "dark", dark: "auto" }[selectedColorScheme];
+				try {
+					localStorage.setItem(COLOR_SCHEME_STORAGE_KEY, selectedColorScheme);
+				} catch {
+				}
+				applyColorScheme();
+				updateColorSchemeButton(button);
+			});
+		});
 		applyColorScheme();
 		colorSchemePreference.addEventListener("change", applyColorScheme);
 		</script>
@@ -24,6 +54,9 @@
 	<body>
 		<main class="search-home">
 			<div class="top-links">
+				<button class="settings-link" id="color-scheme-button" type="button" aria-label="Color theme: auto" title="Color theme: auto">
+					<i class="bi bi-circle-half" aria-hidden="true"></i>
+				</button>
 				<button class="settings-link" id="settings-button" type="button" aria-label="Search settings" title="Search settings">
 					<i class="bi bi-gear-fill" aria-hidden="true"></i>
 				</button>
