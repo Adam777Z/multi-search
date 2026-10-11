@@ -67,8 +67,7 @@ body {
 }
 
 .settings-header,
-.settings-footer,
-.settings-toolbar {
+.settings-actions {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -76,6 +75,20 @@ body {
 
 .settings-header {
 	margin-bottom: 1rem;
+}
+
+.settings-actions {
+	margin-top: 1rem;
+	gap: .75rem;
+	flex-wrap: nowrap;
+}
+
+.settings-actions > button {
+	white-space: nowrap;
+}
+
+.settings-actions .btn-primary {
+	margin-left: auto;
 }
 
 .settings-header h2 {
@@ -139,22 +152,11 @@ body {
 	cursor: pointer;
 }
 
-.settings-toolbar {
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	gap: .5rem;
-	margin-top: 1rem;
-}
-
 .settings-error {
 	min-height: 1.5rem;
 	margin: .75rem 0 0;
 	color: var(--bs-danger);
 	font-size: .875rem;
-}
-
-.settings-footer {
-	justify-content: flex-end;
 }
 
 @media (max-width: 34rem) {
