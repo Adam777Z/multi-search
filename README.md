@@ -8,5 +8,5 @@ Search using multiple search engines at once.
 - Add a custom search engine, set it as default, and search using the address bar:\
 	Name: `Multi Search`\
 	Shortcut: `ms` or `multi`\
-	URL: `https://adam777z.github.io/multi-search/?q=%s`
+	URL with %s in place of query: `https://adam777z.github.io/multi-search/?q=%s`
 - Set up locally for privacy
