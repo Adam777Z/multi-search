@@ -39,13 +39,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			row.className = 'search-engine-row';
 			row.dataset.index = index;
 
-			const dragButton = document.createElement( 'button' );
-			dragButton.className = 'search-engine-drag';
-			dragButton.type = 'button';
-			dragButton.draggable = true;
-			dragButton.setAttribute( 'aria-label', `Reorder ${ searchEngine.name || 'search engine' }` );
-			dragButton.title = 'Drag to reorder';
-			dragButton.innerHTML = '<i class="bi bi-grip-vertical" aria-hidden="true"></i>';
+			const dragHandle = document.createElement( 'div' );
+			dragHandle.className = 'search-engine-drag';
+			dragHandle.draggable = true;
+			dragHandle.tabIndex = 0;
+			dragHandle.setAttribute( 'role', 'group' );
+			dragHandle.setAttribute( 'aria-roledescription', 'drag handle' );
+			dragHandle.setAttribute( 'aria-label', `Reorder ${ searchEngine.name || 'search engine' }` );
+			dragHandle.title = 'Drag to reorder';
+			dragHandle.innerHTML = '<i class="bi bi-grip-vertical" aria-hidden="true"></i>';
 
 			const nameInput = document.createElement( 'input' );
 			nameInput.className = 'form-control search-engine-name';
@@ -71,7 +73,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			deleteButton.title = 'Delete search engine';
 			deleteButton.innerHTML = '<i class="bi bi-trash3" aria-hidden="true"></i>';
 
-			row.append( dragButton, nameInput, urlInput, deleteButton );
+			row.append( dragHandle, nameInput, urlInput, deleteButton );
 			searchEngineList.append( row );
 		} );
 	}
@@ -140,6 +142,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		event.dataTransfer.setData( 'text/plain', row.dataset.index );
 		event.dataTransfer.effectAllowed = 'move';
 		row.classList.add( 'is-dragging' );
+	} );
+
+	searchEngineList.addEventListener( 'keydown', ( event ) => {
+		const handle = event.target.closest( '.search-engine-drag' );
+		if ( ! handle || ! [ 'ArrowUp', 'ArrowDown' ].includes( event.key ) ) {
+			return;
+		}
+		const fromIndex = Number( handle.closest( '.search-engine-row' ).dataset.index );
+		const toIndex = fromIndex + ( event.key === 'ArrowDown' ? 1 : -1 );
+		if ( toIndex < 0 || toIndex >= draftSearchEngines.length ) {
+			return;
+		}
+		event.preventDefault();
+		const [ movedSearchEngine ] = draftSearchEngines.splice( fromIndex, 1 );
+		draftSearchEngines.splice( toIndex, 0, movedSearchEngine );
+		renderSearchEngines();
+		searchEngineList.querySelector( `.search-engine-row[data-index="${ toIndex }"] .search-engine-drag` ).focus();
 	} );
 
 	searchEngineList.addEventListener( 'dragover', ( event ) => {
