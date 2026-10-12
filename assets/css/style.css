@@ -164,13 +164,6 @@ body {
 	cursor: pointer;
 }
 
-.settings-error {
-	min-height: 1.5rem;
-	margin: .75rem 0 0;
-	color: var(--bs-danger);
-	font-size: .875rem;
-}
-
 @media (max-width: 34rem) {
 	.search-engine-row {
 		grid-template-columns: 2rem minmax(0, 1fr) 2.5rem;

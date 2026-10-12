@@ -30,7 +30,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	const settingsDialog = document.getElementById( 'settings-dialog' );
 	const settingsForm = document.getElementById( 'search-engine-settings-form' );
 	const searchEngineList = document.getElementById( 'search-engine-list' );
-	const settingsError = document.getElementById( 'settings-error' );
 
 	function renderSearchEngines() {
 		searchEngineList.replaceChildren();
@@ -80,7 +79,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 	function openSettings() {
 		draftSearchEngines = cloneSearchEngines( searchEngines );
-		settingsError.textContent = '';
 		renderSearchEngines();
 		settingsDialog.showModal();
 	}
@@ -101,7 +99,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 	document.getElementById( 'restore-search-engines' ).addEventListener( 'click', () => {
 		draftSearchEngines = cloneSearchEngines( DEFAULT_SEARCH_ENGINES );
-		settingsError.textContent = 'Defaults loaded. Save changes to apply them.';
 		renderSearchEngines();
 	} );
 
@@ -119,7 +116,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			row.querySelector( '.search-engine-drag' ).setAttribute( 'aria-label', `Reorder ${ event.target.value || 'search engine' }` );
 			row.querySelector( '.search-engine-delete' ).setAttribute( 'aria-label', `Delete ${ event.target.value || 'search engine' }` );
 		}
-		settingsError.textContent = '';
 	} );
 
 	searchEngineList.addEventListener( 'click', ( event ) => {
@@ -128,7 +124,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			return;
 		}
 		draftSearchEngines.splice( Number( deleteButton.closest( '.search-engine-row' ).dataset.index ), 1 );
-		settingsError.textContent = '';
 		renderSearchEngines();
 	} );
 
@@ -228,7 +223,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		try {
 			localStorage.setItem( STORAGE_KEY, JSON.stringify( searchEngines ) );
 		} catch {
-			settingsError.textContent = 'Could not save settings in this browser.';
+			window.alert( 'Could not save settings in this browser.' );
 			return;
 		}
 		settingsDialog.close();
